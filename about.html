@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SİSTEM_KAYITLARI // KÖLSÜN_AUDIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="matrix-bg"></canvas>
+    <div class="crt-overlay"></div>
+
+    <header>
+        <div class="logo">KÖLSÜN_AUDIO<span class="cursor">_</span></div>
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="index.html">[ < SİSTEME DÖN ]</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="about-container">
+        <div class="terminal-box">
+            <h1>> SİSTEM_GEÇMİŞİ (TARİHÇE)</h1>
+            <p class="date">LOG TARİHİ: 2025.04.12</p>
+            <p class="matrix-text">
+                Kölsün Audio, Matrix'in gürültüsü içinde gerçeği arayanlar için 2020 yılında kuruldu. 
+                Sıradan ses dalgalarının ötesine geçerek, zihni özgürleştiren frekansları hedefledik.
+                Zion'un derinliklerinde tasarlanan ilk prototipimiz "Neo_Headset", sadece müzik dinletmiyor; 
+                dinleyiciyi simülasyondan koparıyordu.
+            </p>
+            <br>
+            <h1>> HAKKIMIZDA</h1>
+            <p class="matrix-text">
+                Biz sadece hoparlör veya kablo satmıyoruz. Biz, sesi en saf haliyle ileten "bağlantı noktaları" üretiyoruz.
+                Her ürünümüz, yüksek sadakatli (Hi-Fi) ses teknolojisi ile donatılmış olup, 
+                sistemin hatalarını (glitch) minimize etmek için tasarlanmıştır.
+            </p>
+            <br>
+            <p class="quote">"Gördüklerin gerçek değil, duydukların gerçektir."</p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

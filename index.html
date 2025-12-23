@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE_MATRIX // KÖLSÜN_AUDIO</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="matrix-bg"></canvas>
+    <div class="crt-overlay"></div>
+
+    <header>
+        <div class="logo">KÖLSÜN_AUDIO<span class="cursor">_</span></div>
+        <nav class="main-nav">
+            <ul class="nav-links">
+                <li><a href="#products">[ GİYİLEBİLİR ]</a></li>
+                <li><a href="#sound-systems">[ SİSTEMLER ]</a></li>
+                <li><a href="about.html">[ TARİHÇE ]</a></li>
+                <li><a href="#components">[ BİLEŞENLER ]</a></li>
+                <li><a href="#contact">[ İLETİŞİM ]</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <div id="user-area" class="user-area">
+                <button id="login-btn" class="nav-btn">[ GİRİŞ ]</button>
+                <span id="user-display" class="hidden">OP: <span id="username-text"></span></span>
+            </div>
+            <div class="cart-area" id="cart-toggle">
+                <i class="fas fa-microchip"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>GERÇEK NEDİR?</h1>
+            <p>Müzik sadece kulaklarına gelen elektrik sinyallerinin beynin tarafından yorumlanmasıdır.</p>
+            <a href="#sound-systems" class="cta-btn">BEYAZ TAVŞANI İZLE</a>
+        </div>
+    </section>
+
+    <div class="filter-controls">
+        <button class="filter-btn active" onclick="filterProducts('all')">[ TÜMÜ ]</button>
+        <button class="filter-btn" onclick="filterProducts('giyilebilir')">[ GİYİLEBİLİR ]</button>
+        <button class="filter-btn" onclick="filterProducts('sistemler')">[ SİSTEMLER ]</button>
+        <button class="filter-btn" onclick="filterProducts('bileşenler')">[ BİLEŞENLER ]</button>
+    </div>
+
+    <section id="products" class="products">
+        <h2 class="section-header">> GİYİLEBİLİR_DONANIM</h2>
+        <div class="product-grid">
+            <div class="product-card" data-category="giyilebilir">
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop" alt="Headphones">
+                </div>
+                <div class="p-info">
+                    <h3>NEO_HEADSET V1</h3>
+                    <p class="specs">SIGNAL_STRENGTH: 100%</p>
+                    <div class="price">4500 TL</div>
+                    <button class="add-btn" onclick="addToCart(1, 'NEO_HEADSET V1', 4500)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="giyilebilir">
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=800&auto=format&fit=crop" alt="Bluetooth Speaker">
+                </div>
+                <div class="p-info">
+                    <h3>MORPHEUS_BASS</h3>
+                    <p class="specs">DEEP_WAVE_EMITTER</p>
+                    <div class="price">3200 TL</div>
+                    <button class="add-btn" onclick="addToCart(2, 'MORPHEUS_BASS', 3200)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="giyilebilir">
+                <div class="p-img">
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=800&auto=format&fit=crop" alt="Wireless Earbuds">
+                </div>
+                <div class="p-info">
+                    <h3>TRINITY_LINKS</h3>
+                    <p class="specs">WIRELESS_CONNECTOR</p>
+                    <div class="price">1500 TL</div>
+                    <button class="add-btn" onclick="addToCart(3, 'TRINITY_LINKS', 1500)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sound-systems" class="products">
+        <h2 class="section-header">> ZION_SES_SİSTEMLERİ</h2>
+        <div class="product-grid">
+            <div class="product-card" data-category="sistemler">
+                <div class="p-img">
+                    <img src="data:image/jpeg;base64,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" alt="Tower Speaker">
+                </div>
+                <div class="p-info">
+                    <h3>SENTINEL_TOWER 2.0</h3>
+                    <p class="specs">OUTPUT: 5000 WATTS</p>
+                    <div class="price">12500 TL</div>
+                    <button class="add-btn" onclick="addToCart(10, 'SENTINEL_TOWER 2.0', 12500)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="sistemler">
+                <div class="p-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnnuP0tJ7rPY0dlpAp9Saqcg3q4zvOZzU5XA&s" alt="Home Theater">
+                </div>
+                <div class="p-info">
+                    <h3>NEBUCHADNEZZAR 5.1</h3>
+                    <p class="specs">SURROUND_MATRIX_DECODER</p>
+                    <div class="price">24000 TL</div>
+                    <button class="add-btn" onclick="addToCart(11, 'NEBUCHADNEZZAR 5.1', 24000)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="sistemler">
+                <div class="p-img">
+                    <img src="https://muzikussu.com/pioneer-dj-xprs1182s-18-aktif-subwoofer-28213-27-B.webp" alt="Subwoofer">
+                </div>
+                <div class="p-info">
+                    <h3>EARTH_SHAKER SUB</h3>
+                    <p class="specs">LOW_FREQ_DISRUPTOR</p>
+                    <div class="price">8000 TL</div>
+                    <button class="add-btn" onclick="addToCart(12, 'EARTH_SHAKER SUB', 8000)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="components" class="products">
+        <h2 class="section-header">> DONANIM_BİLEŞENLERİ</h2>
+        <div class="product-grid">
+            <div class="product-card" data-category="bileşenler">
+                <div class="p-img">
+                    <img src="https://www.spacetv.co.za/wp-content/uploads/2021/02/SPA-30-Mixer-Amplifier-front.jpg" alt="Amplifier">
+                </div>
+                <div class="p-info">
+                    <h3>THE_SOURCE_AMP</h3>
+                    <p class="specs">ANALOG_TUBE_WARMTH</p>
+                    <div class="price">6500 TL</div>
+                    <button class="add-btn" onclick="addToCart(20, 'THE_SOURCE_AMP', 6500)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="bileşenler">
+                <div class="p-img">
+                    <img src="https://m.media-amazon.com/images/I/71ci8C22A9L._AC_SL1500_.jpg" alt="Audio Mixer">
+                </div>
+                <div class="p-info">
+                    <h3>OPERATOR_CONSOLE</h3>
+                    <p class="specs">4_CHANNEL_MIXER</p>
+                    <div class="price">4200 TL</div>
+                    <button class="add-btn" onclick="addToCart(21, 'OPERATOR_CONSOLE', 4200)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+            <div class="product-card" data-category="bileşenler">
+                <div class="p-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWFPneHTvDAtzLcLXzdMLTfDzX7yFVEx2VIg&s" alt="Gold Audio Cable">
+                </div>
+                <div class="p-info">
+                    <h3>GOLD_DATA_LINKS</h3>
+                    <p class="specs">LOSSLESS_TRANSMISSION</p>
+                    <div class="price">800 TL</div>
+                    <button class="add-btn" onclick="addToCart(22, 'GOLD_DATA_LINKS', 800)">VERİ İNDİR [+]</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="contact-info">
+                <h2 class="footer-title">KURUMSAL İLETİŞİM</h2>
+                <p class="footer-desc">Yüksek sadakatli ses deneyimi ve teknik destek için uzman ekibimizle bağlantı kurun.</p>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div><strong>MERKEZ OFİS</strong><p>Teknoloji Vadisi, No: 101, Kat: 4<br>34000, İstanbul / TR</p></div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div><strong>MÜŞTERİ HİZMETLERİ</strong><p>+90 (212) 555 00 11</p><small>Hafta içi: 09:00 - 18:00</small></div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div><strong>E-POSTA</strong><p>destek@kolsunaudio.com</p></div>
+                </div>
+            </div>
+            <div class="contact-form-wrapper">
+                <form class="pro-form">
+                    <h3>> DESTEK_TALEBİ_OLUŞTUR</h3>
+                    <div class="form-row">
+                        <div class="form-group"><label>AD SOYAD</label><input type="text" placeholder="Ahmet Yılmaz"></div>
+                        <div class="form-group"><label>E-POSTA</label><input type="email" placeholder="mail@ornek.com"></div>
+                    </div>
+                    <div class="form-group"><label>KONU</label><select><option>Genel Bilgi</option><option>Teknik Destek</option></select></div>
+                    <div class="form-group"><label>MESAJINIZ</label><textarea rows="4" placeholder="Talebinizi detaylandırın..."></textarea></div>
+                    <button type="submit" class="submit-btn">GÖNDER [ENTER]</button>
+                </form>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <p>&copy; 2025 KÖLSÜN AUDIO A.Ş. Tüm Hakları Saklıdır.</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content terminal-window">
+            <span class="close-modal" id="close-login">X</span>
+            <div id="pill-step">
+                <h2>SEÇİMİNİ YAP</h2>
+                <div class="pill-container">
+                    <div class="pill blue-pill" id="btn-blue-pill"><span>MAVİ HAP</span></div>
+                    <div class="pill red-pill" id="btn-red-pill"><span>KIRMIZI HAP</span></div>
+                </div>
+            </div>
+            <form id="login-form" class="hidden">
+                <h2>SİSTEME GİRİŞ</h2>
+                <div class="login-group">
+                    <label>> GMAIL ADRESİ:</label>
+                    <input type="email" id="email-input" placeholder="neo@gmail.com" required>
+                </div>
+                <div class="login-group">
+                    <label>> ERİŞİM ANAHTARI:</label>
+                    <input type="password" id="pass-input" placeholder="********" required>
+                </div>
+                <button type="submit" class="modal-btn">BAĞLAN</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header"><h2>> ENVARTER</h2><span class="close-sidebar" id="close-cart">[KAPAT]</span></div>
+        <div id="cart-items" class="cart-items"><p class="empty-msg">VERİ BULUNAMADI...</p></div>
+        <div class="cart-footer"><div class="total">TOPLAM: <span id="cart-total">₺0</span></div><button id="checkout-btn" class="checkout-btn">TRANSFERİ ONAYLA</button></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
